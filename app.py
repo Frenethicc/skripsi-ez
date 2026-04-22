@@ -57,22 +57,53 @@ st.markdown("Temukan parfum terbaik sesuai preferensi lo 🔥")
 # ==============================
 with st.expander("📚 Panduan Notes Parfum (Klik untuk lihat)"):
     st.markdown("""
-    **Contoh notes yang bisa lo pakai:**
-    
-    🌸 Floral → rose, jasmine, lily  
-    🍋 Fresh → citrus, lemon, bergamot  
-    🌿 Green → herbal, tea, fresh leaves  
-    🍫 Sweet → vanilla, caramel, chocolate  
-    🌳 Woody → sandalwood, cedar, oud  
-    🔥 Spicy → cinnamon, pepper, clove  
-    🌊 Aquatic → ocean, marine, salty  
+    ### 🌸 Floral (Bunga)
+    rose, jasmine, lily, tuberose, orange blossom, iris, violet  
 
-    👉 Contoh input:
-    - *vanilla woody*
-    - *fresh citrus*
-    - *sweet floral*
+    ### 🍋 Fresh / Citrus
+    lemon, bergamot, orange, grapefruit, mandarin  
+
+    ### 🌿 Green / Herbal
+    tea, grass, mint, basil, lavender, rosemary  
+
+    ### 🍬 Sweet / Gourmand
+    vanilla, caramel, chocolate, honey, sugar, tonka bean  
+
+    ### 🌳 Woody
+    sandalwood, cedar, oud, vetiver, patchouli  
+
+    ### 🔥 Spicy
+    cinnamon, pepper, clove, nutmeg, cardamom  
+
+    ### 🌊 Aquatic / Marine
+    ocean, sea salt, marine notes, algae  
+
+    ### 🍎 Fruity
+    apple, pear, peach, berries, pineapple  
+
+    ### 🧼 Clean / Musky
+    musk, powdery, soapy, aldehydes  
+
+    ### 🪵 Warm / Amber
+    amber, resin, balsamic, incense  
+
+    ---
+
+    ### 👉 Tips Kombinasi:
+    - fresh citrus → cocok siang 🌞  
+    - woody spicy → cocok malam 🌙  
+    - sweet vanilla → cozy & hangat  
+    - floral fruity → feminin & ringan  
+
+    ---
+
+    ### ✏️ Contoh input:
+    - vanilla woody  
+    - fresh citrus  
+    - sweet floral  
+    - musky powdery  
+    - amber spicy
     """)
-
 # ==============================
 # INPUT
 # ==============================
