@@ -42,25 +42,49 @@ def recommend_perfume(user_input, weather=None, min_rating=0, min_reviews=0, top
 
     results = df_temp.sort_values(by='score', ascending=False)
 
-    return results[['Perfume','Brand','Rating Value','score','weather_suitability']].head(top_n)
+    return results.head(top_n)
 
 # ==============================
 # UI
 # ==============================
+st.set_page_config(page_title="Perfume Recommender", page_icon="💎", layout="centered")
+
 st.title("💎 Perfume Recommender System")
+st.markdown("Temukan parfum terbaik sesuai preferensi lo 🔥")
 
-st.write("Temukan parfum terbaik sesuai preferensi lo 🔥")
+# ==============================
+# NOTES GUIDE
+# ==============================
+with st.expander("📚 Panduan Notes Parfum (Klik untuk lihat)"):
+    st.markdown("""
+    **Contoh notes yang bisa lo pakai:**
+    
+    🌸 Floral → rose, jasmine, lily  
+    🍋 Fresh → citrus, lemon, bergamot  
+    🌿 Green → herbal, tea, fresh leaves  
+    🍫 Sweet → vanilla, caramel, chocolate  
+    🌳 Woody → sandalwood, cedar, oud  
+    🔥 Spicy → cinnamon, pepper, clove  
+    🌊 Aquatic → ocean, marine, salty  
 
-# INPUT USER
-notes = st.text_input("Masukkan notes parfum (contoh: vanilla woody)")
+    👉 Contoh input:
+    - *vanilla woody*
+    - *fresh citrus*
+    - *sweet floral*
+    """)
 
-weather = st.radio("Pilih kondisi:", ["Semua", "Panas", "Dingin"])
+# ==============================
+# INPUT
+# ==============================
+notes = st.text_input("✏️ Masukkan notes parfum", placeholder="contoh: vanilla woody")
 
-min_rating = st.slider("Minimum Rating", 0.0, 5.0, 4.0)
+weather = st.radio("🌤️ Pilih kondisi cuaca:", ["Semua", "Panas", "Dingin"])
 
-top_brand = st.checkbox("Hanya tampilkan top brand")
+min_rating = st.slider("⭐ Minimum Rating", 0.0, 5.0, 4.0)
 
-# mapping
+top_brand = st.checkbox("🔥 Hanya tampilkan top brand")
+
+# mapping cuaca
 if weather == "Panas":
     weather_filter = "panas"
 elif weather == "Dingin":
@@ -68,7 +92,9 @@ elif weather == "Dingin":
 else:
     weather_filter = None
 
+# ==============================
 # BUTTON
+# ==============================
 if st.button("🔍 Rekomendasikan"):
     if notes.strip() == "":
         st.warning("Masukkan notes dulu bro!")
@@ -87,9 +113,14 @@ if st.button("🔍 Rekomendasikan"):
             st.success("Ini rekomendasi buat lo 👇")
 
             for i, row in results.iterrows():
-                st.write(f"### {row['Perfume']}")
-                st.write(f"Brand: {row['Brand']}")
-                st.write(f"Rating: {row['Rating Value']}")
-                st.write(f"Score: {round(row['score'], 3)}")
-                st.write(f"Cuaca: {row['weather_suitability']}")
+                st.markdown(f"### 💎 {row['Perfume']}")
+                st.write(f"**Brand:** {row['Brand']}")
+                st.write(f"⭐ Rating: {row['Rating Value']}")
+                st.write(f"📊 Score: {round(row['score'], 3)}")
+                st.write(f"🌤️ Cuaca: {row['weather_suitability']}")
+
+                # 🔗 Link Fragrantica
+                if 'url' in row:
+                    st.markdown(f"[🔗 Lihat di Fragrantica]({row['url']})")
+
                 st.markdown("---")
