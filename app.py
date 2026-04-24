@@ -147,7 +147,6 @@ if st.button("🔍 Rekomendasikan"):
                 st.markdown(f"### 💎 {row['Perfume']}")
                 st.write(f"**Brand:** {row['Brand']}")
                 st.write(f"⭐ Rating: {row['Rating Value']}")
-                st.write(f"📊 Score: {round(row['score'], 3)}")
                 st.write(f"🌤️ Cuaca: {row['weather_suitability']}")
 
                 # 🔗 Link Fragrantica
