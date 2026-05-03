@@ -60,12 +60,19 @@ def recommend_perfume(user_input, weather=None, min_rating=0, min_reviews=0,
 
     # 🔥 filter brand
     if brand_type == "designer":
-        df_temp = df_temp[df_temp['Brand'].isin(designer_brands)]
-    elif brand_type == "niche":
-        df_temp = df_temp[df_temp['Brand'].isin(niche_brands)]
-    elif brand_type == "middle_east":
-        df_temp = df_temp[df_temp['Brand'].isin(middle_east_brands)]
+    df_temp = df_temp[
+        df_temp['Brand'].str.contains('|'.join(designer_brands), case=False, na=False)
+    ]
 
+elif brand_type == "niche":
+    df_temp = df_temp[
+        df_temp['Brand'].str.contains('|'.join(niche_brands), case=False, na=False)
+    ]
+
+elif brand_type == "middle_east":
+    df_temp = df_temp[
+        df_temp['Brand'].str.contains('|'.join(middle_east_brands), case=False, na=False)
+    ]
     # sorting
     results = df_temp.sort_values(by='score', ascending=False)
 
