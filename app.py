@@ -113,15 +113,20 @@ weather = st.radio("🌤️ Pilih kondisi cuaca:", ["Semua", "Panas", "Dingin"])
 
 min_rating = st.slider("⭐ Minimum Rating", 0.0, 5.0, 4.0)
 
-top_brand = st.checkbox("🔥 Hanya tampilkan top brand")
+brand_option = st.radio(
+    "🏷️ Pilih kategori brand:",
+    ["Semua", "Designer", "Niche", "Timur Tengah"]
+)
 
 # mapping cuaca
-if weather == "Panas":
-    weather_filter = "panas"
-elif weather == "Dingin":
-    weather_filter = "dingin"
+if brand_option == "Designer":
+    brand_filter = "designer"
+elif brand_option == "Niche":
+    brand_filter = "niche"
+elif brand_option == "Timur Tengah":
+    brand_filter = "middle_east"
 else:
-    weather_filter = None
+    brand_filter = None
 
 # ==============================
 # BUTTON
@@ -131,12 +136,12 @@ if st.button("🔍 Rekomendasikan"):
         st.warning("Masukkan notes dulu bro!")
     else:
         results = recommend_perfume(
-            user_input=notes,
-            weather=weather_filter,
-            min_rating=min_rating,
-            min_reviews=50,
-            top_brand=top_brand
-        )
+    user_input=notes,
+    weather=weather_filter,
+    min_rating=min_rating,
+    min_reviews=50,
+    brand_type=brand_filter
+)
 
         if len(results) == 0:
             st.error("Ga ada rekomendasi yang cocok 😢")
