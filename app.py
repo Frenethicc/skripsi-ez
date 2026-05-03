@@ -59,7 +59,7 @@ def recommend_perfume(user_input, weather=None, min_rating=0, min_reviews=0,
     ]
 
     # 🔥 filter brand
-    if brand_type == "designer":
+if brand_type == "designer":
     df_temp = df_temp[
         df_temp['Brand'].str.contains('|'.join(designer_brands), case=False, na=False)
     ]
