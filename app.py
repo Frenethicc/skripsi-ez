@@ -119,6 +119,14 @@ brand_option = st.radio(
 )
 
 # mapping cuaca
+if weather == "Panas":
+    weather_filter = "panas"
+elif weather == "Dingin":
+    weather_filter = "dingin"
+else:
+    weather_filter = None
+
+# mapping brand
 if brand_option == "Designer":
     brand_filter = "designer"
 elif brand_option == "Niche":
