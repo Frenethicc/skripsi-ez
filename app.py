@@ -59,25 +59,25 @@ def recommend_perfume(user_input, weather=None, min_rating=0, min_reviews=0,
     ]
 
     # 🔥 filter brand
-if brand_type == "designer":
-    df_temp = df_temp[
-        df_temp['Brand'].str.contains('|'.join(designer_brands), case=False, na=False)
-    ]
+    if brand_type == "designer":
+        df_temp = df_temp[
+            df_temp['Brand'].str.contains('|'.join(designer_brands), case=False, na=False)
+        ]
 
-elif brand_type == "niche":
-    df_temp = df_temp[
-        df_temp['Brand'].str.contains('|'.join(niche_brands), case=False, na=False)
-    ]
+    elif brand_type == "niche":
+        df_temp = df_temp[
+            df_temp['Brand'].str.contains('|'.join(niche_brands), case=False, na=False)
+        ]
 
-elif brand_type == "middle_east":
-    df_temp = df_temp[
-        df_temp['Brand'].str.contains('|'.join(middle_east_brands), case=False, na=False)
-    ]
+    elif brand_type == "middle_east":
+        df_temp = df_temp[
+            df_temp['Brand'].str.contains('|'.join(middle_east_brands), case=False, na=False)
+        ]
+
     # sorting
     results = df_temp.sort_values(by='score', ascending=False)
 
     return results.head(top_n)
-
    
 
 # ==============================
@@ -180,12 +180,12 @@ if st.button("🔍 Rekomendasikan"):
         st.warning("Masukkan notes dulu bro!")
     else:
         results = recommend_perfume(
-    user_input=notes,
-    weather=weather_filter,
-    min_rating=min_rating,
-    min_reviews=50,
-    brand_type=brand_filter
-)
+            user_input=notes,
+            weather=weather_filter,
+            min_rating=min_rating,
+            min_reviews=50,
+            brand_type=brand_filter
+        )
 
         if len(results) == 0:
             st.error("Ga ada rekomendasi yang cocok 😢")
