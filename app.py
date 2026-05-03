@@ -17,8 +17,31 @@ df = pd.read_pickle('data.pkl')
 # ==============================
 # FUNCTION
 # ==============================
-def recommend_perfume(user_input, weather=None, min_rating=0, min_reviews=0, top_brand=False, top_n=5):
-    
+designer_brands = [
+    "Dior", "Chanel", "Yves Saint Laurent", "Givenchy",
+    "Giorgio Armani", "Gucci", "Prada", "Versace",
+    "Dolce & Gabbana", "Calvin Klein", "Burberry",
+    "Hermes", "Bvlgari"
+]
+
+niche_brands = [
+    "Parfums de Marly", "Maison Francis Kurkdjian",
+    "Byredo", "Diptyque", "Amouage",
+    "Xerjoff", "Creed", "Initio Parfums Prives",
+    "Le Labo", "Kilian", "Frederic Malle",
+    "Mancera", "Montale", "Nishane"
+]
+
+middle_east_brands = [
+    "Lattafa", "Armaf", "Rasasi", "Ajmal",
+    "Al Haramain", "Swiss Arabian", "Afnan",
+    "Nabeel", "Arabian Oud", "Khadlaj"
+]
+
+
+def recommend_perfume(user_input, weather=None, min_rating=0, min_reviews=0,
+                      brand_type=None, top_n=5):
+
     user_vec = tfidf.transform([user_input])
     sim_scores = cosine_similarity(user_vec, tfidf_matrix)[0]
 
@@ -35,14 +58,20 @@ def recommend_perfume(user_input, weather=None, min_rating=0, min_reviews=0, top
         (df_temp['Rating Count'] >= min_reviews)
     ]
 
-    # filter top brand
-    if top_brand:
-        top_brands = df['Brand'].value_counts().head(10).index
-        df_temp = df_temp[df_temp['Brand'].isin(top_brands)]
+    # 🔥 filter brand
+    if brand_type == "designer":
+        df_temp = df_temp[df_temp['Brand'].isin(designer_brands)]
+    elif brand_type == "niche":
+        df_temp = df_temp[df_temp['Brand'].isin(niche_brands)]
+    elif brand_type == "middle_east":
+        df_temp = df_temp[df_temp['Brand'].isin(middle_east_brands)]
 
+    # sorting
     results = df_temp.sort_values(by='score', ascending=False)
 
     return results.head(top_n)
+
+   
 
 # ==============================
 # UI
