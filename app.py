@@ -179,11 +179,12 @@ if st.button("🔍 Rekomendasikan"):
     if notes.strip() == "":
         st.warning("Masukkan notes dulu bro!")
     else:
+        user_notes = notes.lower().split()
         results = recommend_perfume(
             user_input=notes,
             weather=weather_filter,
             min_rating=min_rating,
-            min_reviews=50,
+            min_reviews=250,
             brand_type=brand_filter
         )
 
@@ -193,11 +194,23 @@ if st.button("🔍 Rekomendasikan"):
             st.success("Ini rekomendasi buat lo 👇")
 
             for i, row in results.iterrows():
-                st.markdown(f"### 💎 {row['Perfume']}")
-                st.write(f"**Brand:** {row['Brand']}")
-                st.write(f"⭐ Rating: {row['Rating Value']}")
-                st.write(f"🌤️ Cuaca: {row['weather_suitability']}")
-
+                st.markdown(f"## 💎 {row['Perfume']}")
+                st.progress(row["match_percentage"]/100)
+                st.write(f"🎯 Tingkat Kemiripan : **{row['match_percentage']}%**")
+                st.write(f"🏷️ Brand : {row['Brand']}")
+                st.write(f"⭐ Rating : {row['Rating Value']}")
+                st.write(f"👥 Review : {int(row['Rating Count'])}")
+                st.write(f"🌤️ Cuaca : {row['weather_suitability']}")
+                combined_text = str(row["combined_clean"]).lower()
+                matched_notes = []
+                for note in user_notes:
+                    if note in combined_text:
+                        matched_notes.append(note.capitalize())
+                st.markdown("### 🧠 Mengapa parfum ini direkomendasikan?")
+                if matched_notes:
+                    st.write("✅ Notes yang cocok : "
+                             + ", ".join(matched_notes)
+                            )
                 # 🔗 Link Fragrantica
                 if 'url' in row:
                     st.markdown(f"[🔗 Lihat di Fragrantica]({row['url']})")
