@@ -245,7 +245,7 @@ if st.button("🔍 Rekomendasikan"):
             user_input=notes,
             weather=weather_filter,
             min_rating=min_rating,
-            min_reviews=300,
+            min_reviews=350,
             brand_type=brand_filter
         )
 
