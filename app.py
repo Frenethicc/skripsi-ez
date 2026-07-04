@@ -250,124 +250,124 @@ if st.button("🔍 Rekomendasikan"):
         )
 
         # ============================================
-# HASIL REKOMENDASI
-# ============================================
+        # HASIL REKOMENDASI
+        # ============================================
 
-if len(results) == 0:
+        if len(results) == 0:
 
-    st.error("😢 Tidak ditemukan parfum yang sesuai.")
+            st.error("😢 Tidak ditemukan parfum yang sesuai.")
 
-    st.info("""
-Coba salah satu berikut:
+            st.info("""
+        Coba salah satu berikut:
 
-• Kurangi minimum rating
-• Pilih kategori brand 'Semua'
-• Pilih cuaca 'Semua'
-• Gunakan notes yang lebih umum
-""")
-
-else:
-
-    st.success("✨ Berikut rekomendasi parfum untuk Anda")
-
-    # ===============================
-    # RINGKASAN PREFERENSI
-    # ===============================
-    st.markdown("## 📋 Preferensi Anda")
-
-    col1, col2 = st.columns(2)
-
-    with col1:
-        st.write(f"**📝 Notes :** {notes}")
-
-        st.write(f"**⭐ Minimum Rating :** {min_rating}")
-
-    with col2:
-
-        st.write(f"**🌤️ Cuaca :** {weather}")
-
-        st.write(f"**🏷️ Brand :** {brand_option}")
-
-    st.markdown("---")
-
-    # ===============================
-    # HASIL
-    # ===============================
-    for i, row in results.iterrows():
-
-        st.markdown(f"# 💎 {row['Perfume']}")
-
-        st.metric(
-            "🎯 Tingkat Kemiripan",
-            f"{row['match_percentage']}%"
-        )
-
-        st.progress(row["match_percentage"]/100)
-
-        st.write(f"**🏷️ Brand** : {row['Brand']}")
-
-        st.write(f"**⭐ Rating** : {row['Rating Value']}")
-
-        st.write(f"**👥 Review** : {int(row['Rating Count'])}")
-
-        st.write(f"**🌤️ Cuaca** : {row['weather_suitability']}")
-
-        st.markdown("### 🧠 Mengapa parfum ini direkomendasikan?")
-
-        combined_text = str(row["combined_clean"]).lower()
-
-        matched_notes = []
-
-        for note in user_notes:
-
-            if note in combined_text:
-
-                matched_notes.append(note.capitalize())
-
-        if matched_notes:
-
-            st.success(
-                "✅ Notes yang sesuai : "
-                + ", ".join(matched_notes)
-            )
+        • Kurangi minimum rating
+        • Pilih kategori brand 'Semua'
+        • Pilih cuaca 'Semua'
+        • Gunakan notes yang lebih umum
+        """)
 
         else:
 
-            st.info(
-                "Tidak ditemukan notes yang sama persis, namun parfum memiliki karakter aroma yang mirip."
-            )
+            st.success("✨ Berikut rekomendasi parfum untuk Anda")
 
-        st.info(
-            f"⭐ Rating tinggi ({row['Rating Value']}) berdasarkan {int(row['Rating Count'])} review."
-        )
+            # ===============================
+            # RINGKASAN PREFERENSI
+            # ===============================
+            st.markdown("## 📋 Preferensi Anda")
 
-        if weather_filter:
+            col1, col2 = st.columns(2)
 
-            st.info(
-                f"☀️ Direkomendasikan untuk cuaca {weather_filter.capitalize()}."
-            )
+            with col1:
+                st.write(f"**📝 Notes :** {notes}")
 
-        # ===============================
-        # DETAIL NOTES
-        # ===============================
-        with st.expander("📖 Detail Notes Parfum"):
+                st.write(f"**⭐ Minimum Rating :** {min_rating}")
 
-            st.write(f"🌸 **Top Notes**")
-            st.write(row["Top"])
+            with col2:
 
-            st.write(f"🌿 **Middle Notes**")
-            st.write(row["Middle"])
+                st.write(f"**🌤️ Cuaca :** {weather}")
 
-            st.write(f"🪵 **Base Notes**")
-            st.write(row["Base"])
+                st.write(f"**🏷️ Brand :** {brand_option}")
 
-        if pd.notna(row["url"]):
+            st.markdown("---")
 
-            st.markdown(
-                f"🔗 [Lihat detail di Fragrantica]({row['url']})"
-            )
+            # ===============================
+            # HASIL
+            # ===============================
+            for i, row in results.iterrows():
 
-        st.markdown("---")
+                st.markdown(f"# 💎 {row['Perfume']}")
+
+                st.metric(
+                    "🎯 Tingkat Kemiripan",
+                    f"{row['match_percentage']}%"
+                )
+
+                st.progress(row["match_percentage"]/100)
+
+                st.write(f"**🏷️ Brand** : {row['Brand']}")
+
+                st.write(f"**⭐ Rating** : {row['Rating Value']}")
+
+                st.write(f"**👥 Review** : {int(row['Rating Count'])}")
+
+                st.write(f"**🌤️ Cuaca** : {row['weather_suitability']}")
+
+                st.markdown("### 🧠 Mengapa parfum ini direkomendasikan?")
+
+                combined_text = str(row["combined_clean"]).lower()
+
+                matched_notes = []
+
+                for note in user_notes:
+
+                    if note in combined_text:
+
+                        matched_notes.append(note.capitalize())
+
+                if matched_notes:
+
+                    st.success(
+                        "✅ Notes yang sesuai : "
+                        + ", ".join(matched_notes)
+                    )
+
+                else:
+
+                    st.info(
+                        "Tidak ditemukan notes yang sama persis, namun parfum memiliki karakter aroma yang mirip."
+                    )
+
+                st.info(
+                    f"⭐ Rating tinggi ({row['Rating Value']}) berdasarkan {int(row['Rating Count'])} review."
+                )
+
+                if weather_filter:
+
+                    st.info(
+                        f"☀️ Direkomendasikan untuk cuaca {weather_filter.capitalize()}."
+                    )
+
+                # ===============================
+                # DETAIL NOTES
+                # ===============================
+                with st.expander("📖 Detail Notes Parfum"):
+
+                    st.write(f"🌸 **Top Notes**")
+                    st.write(row["Top"])
+
+                    st.write(f"🌿 **Middle Notes**")
+                    st.write(row["Middle"])
+
+                    st.write(f"🪵 **Base Notes**")
+                    st.write(row["Base"])
+
+                if pd.notna(row["url"]):
+
+                    st.markdown(
+                        f"🔗 [Lihat detail di Fragrantica]({row['url']})"
+                    )
+
+                st.markdown("---")
 # ==============================
 # FOOTER
 # ==============================
